@@ -11,6 +11,12 @@
             "driver": "SQLite",
             "name": "1",
             "database": "${workspaceFolder:django_rest}/librari/db.sqlite3"
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "1",
+            "database": "${workspaceFolder:django_rest}/librari/db.sqlite3"
         }
     ],
     "sqltools.useNodeRuntime": true
