@@ -10,6 +10,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.viewsets import ViewSet
 from rest_framework.decorators import action
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.permissions import AllowAny
 
 
 class AuthorPaginator(LimitOffsetPagination):
@@ -34,6 +35,7 @@ class AuthorModelViewSet(ModelViewSet):
 
 
 class BookModelViewSet(ModelViewSet):
+    permission_classes = [AllowAny]
     queryset = Book.objects.all()
     serializer_class = BookModelSerializer
 
