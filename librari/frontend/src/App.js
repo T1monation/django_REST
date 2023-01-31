@@ -20,31 +20,37 @@ const NotFound404 = ({ location }) => {
 class App extends React.Component {
   constructor(props) {
     super(props)
-    const author1 = { id: 1, first_name: 'Грин', birthday_year: 1880 }
-    const author2 = { id: 2, first_name: 'Пушкин', birthday_year: 1799 }
-    const autors = [author1, author2]
-    const book1 = { id: 1, name: 'Алые паруса', author: author1 }
-    const book2 = { id: 2, name: 'Золотая цепь', author: author1 }
-    const book3 = { id: 3, name: 'Пиковая Дама', author: author2 }
-    const book4 = { id: 4, name: 'Капитанская дочка', author: author2 }
-    const books = [book1, book2, book3, book4]
 
     this.state = {
-      'authors': autors,
-      'books': books
+      'authors': [],
+      'books': []
     }
   }
-  // componentDidMount() {
-  //   axios.get('http://127.0.0.1:8000/api/authors')
-  //     .then(response => {
-  //       const authors = response.data
-  //       this.setState(
-  //         {
-  //           'authors': authors
-  //         }
-  //       )
-  //     }).catch(error => console.log(error))
-  // }
+  load_data() {
+    axios.get('http://127.0.0.1:8000/api/authors')
+      .then(response => {
+        const authors = response.data
+        this.setState(
+          {
+            'authors': authors['results']
+          }
+        )
+      }).catch(error => console.log(error))
+
+    axios.get('http://127.0.0.1:8000/api/books')
+      .then(response => {
+        const books = response.data
+        this.setState(
+          {
+            'books': books['results']
+          }
+        )
+      }).catch(error => console.log(error))
+  }
+
+  componentDidMount() {
+    this.load_data()
+  }
 
   render() {
     return (
