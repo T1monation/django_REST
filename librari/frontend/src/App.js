@@ -43,6 +43,8 @@ class App extends React.Component {
 
   loguot() {
     this.set_token('')
+    localStorage.setItem('username', '')
+
   }
 
   get_token_from_storage() {
@@ -57,6 +59,7 @@ class App extends React.Component {
     axios.post('http://192.168.1.77:8000/api-token-auth/', { username: login, password: password })
       .then(response => {
         this.set_token(response.data['token'])
+        localStorage.setItem('username', login)
 
       }).catch(error => alert('Неверный пароль'))
   }
@@ -64,8 +67,6 @@ class App extends React.Component {
   get_headers() {
     let headers = {
       'Content-Type': 'application/json',
-      // 'Access-Control-Allow-Origin': '*'
-
     }
     if (this.is_authenticated()) {
       headers['Authorization'] = 'Token ' + this.state.token
@@ -113,8 +114,8 @@ class App extends React.Component {
                 <Link to='/books'>Books</Link>
               </li>
               <li>
+                {this.is_authenticated() ? <h5>Привет, {localStorage.getItem('username')}!</h5> : <h5>Вход не выполнен</h5>}
                 {this.is_authenticated() ? <button onClick={() => this.loguot()}>Logout</button> : <Link to='/login'>Login</Link>}
-
               </li>
             </ul>
           </nav>
