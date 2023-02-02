@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-*a+=revyxl#^y1ubno=*1(0oo8!*(s(rz!@f(-l0z=wi75b4^z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'app',
     'corsheaders',
+    'app',
     'django_filters',
     'rest_framework.authtoken',
 ]
@@ -131,8 +131,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "http://192.168.1.51:3000"
+    "http://192.168.1.77:3000",
+
 ]
+
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
@@ -140,26 +142,27 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.AdminRenderer',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 2,
 }
 
-JWT_AUTH = {
-    'JWT_VERIFY': True,
 
-    'JWT_VERIFY_EXPIRATION': True,
+# JWT_AUTH = {
+#     'JWT_VERIFY': True,
 
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=100),
+#     'JWT_VERIFY_EXPIRATION': True,
 
-    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
-}
+#     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=100),
+
+#     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+# }
