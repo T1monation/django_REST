@@ -19,5 +19,8 @@
             "database": "${workspaceFolder:django_rest}/librari/db.sqlite3"
         }
     ],
-    "sqltools.useNodeRuntime": true
+    "sqltools.useNodeRuntime": true,
+    "python.analysis.extraPaths": [
+        "./venv/lib/python3.10/site-packages"
+    ]
 }
