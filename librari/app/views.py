@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from .models import Author, Book, Article, Biography
-from .serializers import AuthorModelSerializer, ArticleModelSerializer, BiographyModelSerializer, BookModelSerializer
+from .serializers import AuthorModelSerializer, AuthorModelSerializer2, ArticleModelSerializer, BiographyModelSerializer, BookModelSerializer
 from rest_framework.serializers import Serializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -11,6 +11,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.decorators import action
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework import generics
 
 
 class AuthorPaginator(LimitOffsetPagination):
@@ -59,15 +60,14 @@ class BiographyModelViewSet(ModelViewSet):
 #     def post(self, request):
 #         return Response({'dats': 'POST SUCCSESS'})
 
-class MyAPIView(ViewSet):
-    def list(self, request):
-        authors = Author.objects.all()
-        serializer = AuthorModelSerializer(authors, many=True)
-        return Response(serializer.data)
+class MyAPIView(generics.ListAPIView):
+    queryset = Author.objects.all()
+    serializer = AuthorModelSerializer
 
-    @action(detail=False, methods=['get'])
-    def babayka(self, request):
-        return Response({'data': 'RATATA'})
+    def get_serializer_class(self):
+        if self.request.version == '1':
+            return AuthorModelSerializer
+        return AuthorModelSerializer2
 
 
 # def authenticate_user(request):
