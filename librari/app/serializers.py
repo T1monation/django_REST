@@ -10,6 +10,13 @@ class AuthorModelSerializer(ModelSerializer):
         # exclude = ['first_name']
 
 
+class AuthorModelSerializer2(ModelSerializer):
+    class Meta:
+        model = Author
+        fields = ['first_name']
+        # exclude = ['first_name']
+
+
 class BiographyModelSerializer(HyperlinkedModelSerializer):
     class Meta:
         model = Biography
