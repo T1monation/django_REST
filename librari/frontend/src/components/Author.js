@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 
 const AuthorItem = ({ author }) => {
+    console.log(author, author.id)
     return (
         <tr>
             <td>
