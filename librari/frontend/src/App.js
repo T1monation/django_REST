@@ -3,6 +3,7 @@ import './App.css';
 import React from 'react';
 import AuthorList from './components/Author.js';
 import BookList from './components/Books.js';
+import BookForm from './components/BookForm';
 import AuthorBookList from './components/AuthorBook';
 import axios from 'axios';
 import { HashRouter, Route, Link, Switch, Redirect, BrowserRouter } from 'react-router-dom';
@@ -26,7 +27,7 @@ class App extends React.Component {
     this.state = {
       'authors': [],
       'books': [],
-      'token': ''
+      'token': '',
     }
   }
 
@@ -74,6 +75,28 @@ class App extends React.Component {
     return headers
   }
 
+  createBook(name, author) {
+    const headers = this.get_headers()
+    const data = { name: name, author: [author] }
+    console.log(data, headers)
+    axios.post('http://192.168.1.77:8000/api/books/', data, { headers })
+      .then(response => {
+        let new_book = response.data
+        const author = this.state.authors.filter((item) => item.id === new_book.author)[0]
+        new_book.author = author
+        this.setState({ books: [...this.state.books, new_book] })
+      }).catch(error => console.log(error))
+  }
+
+  deleteBook(id) {
+    const headers = this.get_headers()
+    axios.delete(`http://192.168.1.77:8000/api/books/${id}`, { headers })
+      .then(response => {
+        this.setState({ books: this.state.books.filter((item) => item.id !== id) })
+      }).catch(error => console.log(error))
+  }
+
+
   load_data() {
     const headers = this.get_headers()
     axios.get('http://192.168.1.77:8000/api/authors', { headers })
@@ -81,7 +104,7 @@ class App extends React.Component {
         const authors = response.data
         this.setState(
           {
-            'authors': authors['results']
+            'authors': authors
           }
         )
       }).catch(error => console.log(error))
@@ -91,7 +114,7 @@ class App extends React.Component {
         const books = response.data
         this.setState(
           {
-            'books': books['results']
+            'books': books
           }
         )
       }).catch(error => console.log(error))
@@ -121,7 +144,8 @@ class App extends React.Component {
           </nav>
           <Switch>
             <Route exact path='/' component={() => <AuthorList authors={this.state.authors} />} />
-            <Route exact path='/books' component={() => <BookList items={this.state.books} />} />
+            <Route exact path='/books/create' component={() => <BookForm authors={this.state.authors} createBook={(name, author) => this.createBook(name, author)} />} />
+            <Route exact path='/books' component={() => <BookList items={this.state.books} deleteBook={(id) => this.deleteBook(id)} />} />
             <Route exact path='/author/:id' component={() => <AuthorBookList items={this.state.books} />} />
             <Route exact path='/login' component={() => <LoginForm get_token={(login, password) => this.get_token(login, password)} />} />
             <Redirect from='/authors' to='/' />
