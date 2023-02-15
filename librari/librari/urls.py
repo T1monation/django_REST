@@ -22,6 +22,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
+from graphene_django.views import GraphQLView
 
 
 schema_view = get_schema_view(
@@ -48,6 +49,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
     path('api-token-auth/', views.obtain_auth_token),
+    path('graphql/', GraphQLView.as_view(graphiql=True)),
     path('api/token/', TokenObtainPairView.as_view(), name='tocken_obtane_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
