@@ -1,0 +1,108 @@
+[
+    {
+        "model": "app.author",
+        "pk": 1,
+        "fields": {
+            "first_name": "Федор",
+            "last_name": "Петров",
+            "birthday_year": 2000
+        }
+    },
+    {
+        "model": "app.author",
+        "pk": 2,
+        "fields": {
+            "first_name": "Александр",
+            "last_name": "Грин",
+            "birthday_year": 1880
+        }
+    },
+    {
+        "model": "app.author",
+        "pk": 3,
+        "fields": {
+            "first_name": "Говард",
+            "last_name": "Лавкрафт",
+            "birthday_year": 1890
+        }
+    },
+    {
+        "model": "app.author",
+        "pk": 4,
+        "fields": {
+            "first_name": "Эрих",
+            "last_name": "Ремарк",
+            "birthday_year": 1898
+        }
+    },
+    {
+        "model": "app.book",
+        "pk": 1,
+        "fields": {
+            "name": "Преступление и наказание",
+            "author": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "app.book",
+        "pk": 2,
+        "fields": {
+            "name": "Алые паруса",
+            "author": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "app.book",
+        "pk": 3,
+        "fields": {
+            "name": "Три товарища",
+            "author": [
+                4
+            ]
+        }
+    },
+    {
+        "model": "app.book",
+        "pk": 4,
+        "fields": {
+            "name": "Триумфальная арка",
+            "author": [
+                4
+            ]
+        }
+    },
+    {
+        "model": "app.book",
+        "pk": 5,
+        "fields": {
+            "name": "Хребты Безумия",
+            "author": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "app.book",
+        "pk": 6,
+        "fields": {
+            "name": "Зов Ктулху",
+            "author": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "app.book",
+        "pk": 7,
+        "fields": {
+            "name": "Бесы",
+            "author": [
+                1
+            ]
+        }
+    }
+]
